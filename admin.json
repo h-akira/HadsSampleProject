@@ -1,0 +1,13 @@
+{
+  "static":{
+    "local": "static",
+    "s3": "s3://hakira0627-hads-sample/static"
+  },
+  "local_server":{
+    "port":{
+      "static":8080,
+      "proxy":8000,
+      "sam":3000
+    }
+  }
+}
