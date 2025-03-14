@@ -1,6 +1,5 @@
 from hads.urls import Path, Router
 from .views import index, sample, logout
-from app.
 
 urlpatterns = [
   # Path("AAA/MMM/NNN", "AAAFunction", name="AAA"),
