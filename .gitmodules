@@ -1,0 +1,3 @@
+[submodule "hads"]
+	path = hads
+	url = https://github.com/h-akira/hads.git

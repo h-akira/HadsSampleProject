@@ -9,7 +9,23 @@ STATIC_URL = "/static"  # 先頭の/はあってもなくても同じ扱
 # ログイン周りの設定
 from hads.authenticate import Cognito, ManagedAuthPage
 import boto3
-ssm = boto3.client('ssm')
+if os.path.exists(os.path.join(BASE_DIR, "../admin.json")):
+  import json
+  with open(os.path.join(BASE_DIR, "../admin.json")) as f:
+    admin = json.load(f)
+  kwargs = {}
+  try:
+    kwargs["region_name"] = admin["region"]
+  except KeyError:
+    pass
+  try:
+    kwargs["profile_name"] = admin["profile"]
+  except KeyError:
+    pass
+  session = boto3.Session(**kwargs)
+  ssm = session.client('ssm')
+else:
+  ssm = boto3.client('ssm')
 COGNITO= Cognito(
   domain = ssm.get_parameter(Name="/HadsSampleProject/Cognito/domain")["Parameter"]["Value"],
   user_pool_id = ssm.get_parameter(Name="/HadsSampleProject/Cognito/user_pool_id")["Parameter"]["Value"],
