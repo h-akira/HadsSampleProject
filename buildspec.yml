@@ -8,5 +8,6 @@ phases:
       - pip3 install -r requirements.txt -t Layer/python/
   build:
     commands:
+      - aws s3 sync $(jq -r ".static.local" admin.json) $(jq -r ".static.s3" admin.json)
       - sam build
       - sam deploy --no-confirm-changeset
